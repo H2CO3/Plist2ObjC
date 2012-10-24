@@ -15,7 +15,7 @@ NSString *removeIndentation(NSString *str)
 {
 	NSInteger len = [str length];
 	NSInteger i;
-	NSInteger idx;
+	NSInteger idx = len;
 	for (i = 0; i < len; i++) {
 		NSString *s = [str substringWithRange:NSMakeRange(i, 1)];
 		if ([s isEqualToString:@"\t"] == NO) {
