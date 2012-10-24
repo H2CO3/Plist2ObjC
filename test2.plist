@@ -1,0 +1,16 @@
+<plist>
+<array>
+	<dict>
+		<key>Qwerty</key>
+		<string>Lorem ipsum dolor sit amet.</string>
+	</dict>
+	<dict>
+		<key>Answer</key>
+		<integer>42</integer>
+		<key>Leet</key>
+		<integer>1337</integer>
+		<key>Apple Pie</key>
+		<real>3.141592654</real>
+	</dict>
+</array>
+</plist>

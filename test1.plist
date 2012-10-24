@@ -1,0 +1,21 @@
+"A Dictionary" = {
+	"Key" = "Value";
+	"Another Key" = {
+		"Third Key" = "Some Value";
+		"Forth Key" = (
+			1, 2, 3
+		);
+	};
+	"Fifth Key" = (
+		"This",
+		"Is",
+		"An",
+		"Array"
+	);
+};
+"An Array" = (
+	"Another array",
+	2,
+	4,
+	6
+);

@@ -1,0 +1,23 @@
+Plist2Objc is a tool that converts property list objects to Objective-C style literal initializers.
+Its output is valid Objective-C code, and can be used to populate an NSArray or NSDictionary by copy-pasting it.
+
+It's perhaps not the better concept to have large property lists hardcoded in a program, but anyway, this may be needed.
+(This tool was insipired by this StackOverflow-question: http://stackoverflow.com/questions/13055259/convert-plist-code-into-nsdictionary-format/13055296#13055296)
+
+Usage:
+	plist2objc <file.plist>
+
+This will pretty-print the generated Objective-C code equivalent of the structure of the specified plist file.
+
+An example use (untested) may be:
+
+	// SomeCodeFile.m.bak
+	NSDictionary *dict = DICTIONARY_INITIALIZER_HERE;
+
+then:
+
+	export DICT=`plist2objc file.plist`
+	sed s/DICTIONARY_INITIALIZER_HERE/$DICT/g SomeCodeFile.m.bak >SomeCodeFile.m
+
+Licensed under the 3-clause BSD License.
+
