@@ -1,7 +1,7 @@
 Plist2Objc is a tool that converts property list objects to Objective-C style literal initializers.
 Its output is valid Objective-C code, and can be used to populate an NSArray or NSDictionary by copy-pasting it.
 
-It's perhaps not the better concept to have large property lists hardcoded in a program, but anyway, this may be needed.
+It's perhaps not the best concept to have large property lists hardcoded in a program, but anyway, this may be needed.
 (This tool was insipired by this StackOverflow-question: http://stackoverflow.com/questions/13055259/convert-plist-code-into-nsdictionary-format/13055296#13055296)
 
 Usage:
