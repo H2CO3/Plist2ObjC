@@ -33,12 +33,12 @@ NSString *recursiveDump(id object, int level)
 	static const char *indent = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
 	
 	if (level >= MAX_DEPTH) [NSException raise:NSInternalInconsistencyException format:@"Nested too deep"];
-
+    
 	const char *selfIndent = indent + MAX_DEPTH - level;
 	const char *childIndent = indent + MAX_DEPTH - (level + 1);
-
+    
 	if ([object isKindOfClass:[NSString class]]) {
-		return [NSString stringWithFormat:@"%s@\"%@\"", selfIndent, object];
+		return [NSString stringWithFormat:@"%s@\"%@\"", selfIndent, [object stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]];
 	} else if ([object isKindOfClass:[NSNumber class]]) {
 		return [NSString stringWithFormat:@"%s@%@", selfIndent, object];
 	} else if ([object isKindOfClass:[NSArray class]]) {
@@ -73,19 +73,43 @@ NSString *recursiveDump(id object, int level)
 	}
 }
 
+void printUsage()
+{
+    printf("Usage: plist2objc [path to plist]\n\n");
+}
+
 int main(int argc, char *argv[])
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-	NSString *file = [NSString stringWithUTF8String:argv[1]];
-	id obj = [NSDictionary dictionaryWithContentsOfFile:file];
-	if (obj == nil) {
-		// not a dictionary - should be an array
-		obj = [NSArray arrayWithContentsOfFile:file];
-	}
-	NSString *code = recursiveDump(obj, 0);
-	printf("%s\n", [code UTF8String]);
-
-	[pool release];
-	return 0;
+    if (argc == 2)
+    {
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+        
+        NSString *file = [NSString stringWithUTF8String:argv[1]];
+        
+        id obj = [NSDictionary dictionaryWithContentsOfFile:file];
+        if (obj == nil) {
+            // not a dictionary - should be an array
+            obj = [NSArray arrayWithContentsOfFile:file];
+            if (obj == nil) {
+                // not an array either, must be an invaild file.
+                printUsage();
+                printf("Error: Invaild file supplied.\n");
+                [pool release];
+                return EXIT_FAILURE;
+            }
+            
+        }
+        NSString *code = recursiveDump(obj, 0);
+        printf("%s\n", [code UTF8String]);
+        
+        [pool release];
+        return EXIT_SUCCESS;
+    }
+    
+    printUsage();
+    
+    printf("Error: Invaild arguments supplied.\n");
+    
+    return EXIT_FAILURE;
 }
+
