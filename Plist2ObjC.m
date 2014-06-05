@@ -75,7 +75,7 @@ NSString *recursiveDump(id object, int level)
 
 void printUsage()
 {
-    printf("Usage: plist2objc [path to plist]\n\n");
+    printf("Usage: plist2objc <file.plist>\n\n");
 }
 
 int main(int argc, char *argv[])
